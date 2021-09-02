@@ -92,7 +92,7 @@ module.exports = class KataTest {
         }
       }
       console.log(failedSpacer);
-      // process.exit(1) // Codewars-like behavior, exit when a test fails
+      process.exit(1) // Codewars-like behavior, exit when a test fails
     }
   }
 
