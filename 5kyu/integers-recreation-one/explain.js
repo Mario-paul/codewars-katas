@@ -3,22 +3,17 @@
 function listSquared(m, n) {
   let sum = 0;
   let result = [];
-  
+
   // Loop through all numbers from m to n
   for (let i = m; i <= n; i++) {
     sum = 0;
     // Loop through all numbers from 1 to i
     for (let j = 1; j <= i; j++) {
       // If j is a factor of i, add the power of j to sum
-      if (i % j === 0) {
-        sum += j * j;
-      }
+      if (i % j === 0) sum += j * j;
     }
-    if (i === 1) result.push([i, i])
     // If the square root of TOTAL sum is an integer, add to result
-    if (Math.sqrt(sum) % 2 === 0) {
-      result.push([i, sum]);
-    }
+    if (Math.sqrt(sum) % 1 === 0) result.push([i, sum]);
   }
-  return result
+  return result;
 }

@@ -9,7 +9,7 @@ const { describe, it } = require("../../kata-test/describe-it.js");
 // to execute code live on this IDE.
 
 function listSquared(m, n) {
-  console.log("m, n: ", m, n);
+  // console.log("m, n: ", m, n);
 
   let sum = 0;
   let result = [];
@@ -23,14 +23,12 @@ function listSquared(m, n) {
         sum += j * j;
       }
     }
-    if (i === 1) result.push([i, i])
-    if (Math.sqrt(sum) % 2 === 0) {
-      result.push([i, sum]);
-    }
+    // if (i === 1) result.push([i, i]) // old code
+    if (Math.sqrt(sum) % 1 === 0) result.push([i, sum]);
   }
   // console.log(result);
   // console.log(Math.sqrt(sum));
-  return result
+  return result;
 }
 
 describe("Basic tests", function () {
