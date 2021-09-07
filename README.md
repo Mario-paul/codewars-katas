@@ -1,4 +1,8 @@
-# Kata Tester _(kata-tester)_
+# Codewars Katas _(codewars-katas)_
+
+Codewars kata repository and testing environment using kata-tester library
+
+## _kata-tester readme:_
 
 Unit testing library for Codewars katas in Visual Studio Code
 
