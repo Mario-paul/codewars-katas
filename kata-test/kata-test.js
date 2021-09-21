@@ -102,16 +102,31 @@ module.exports = class KataTest {
     }
   }
 
-  defaultTest(input, expectedOutput, message) {
+  testSuite(input, expectedOutput, message, testType) {
     let printInput = this.checkForArray(input);
     let printExpectedOutput = this.checkForArray(expectedOutput);
 
-    printInput = this.removeSingleQuotes(input);
-    printExpectedOutput = this.removeSingleQuotes(expectedOutput);
+    let testPassed, testFailed, testFailedMessage;
 
-    const testPassed = "🗸 Test Passed";
-    const testFailed = `✗ expected ${printInput} to equal ${printExpectedOutput}`;
-    const testFailedMessage = `✗ ${message}: expected ${printInput} to equal ${printExpectedOutput}`;
+    if (testType === "default") {
+      printInput = this.removeSingleQuotes(input);
+      printExpectedOutput = this.removeSingleQuotes(expectedOutput);
+
+      testPassed = "🗸 Test Passed";
+      testFailed = `✗ expected ${printInput} to equal ${printExpectedOutput}`;
+      testFailedMessage = `✗ ${message}: expected ${printInput} to equal ${printExpectedOutput}`;
+    } else if (testType === "assertSimilar") {
+      testPassed = `🗸 Test Passed: Value == ${printExpectedOutput}`;
+      testFailed = `✗ Expected: ${printExpectedOutput}, instead got: ${printInput}`;
+      testFailedMessage = `✗ ${message} - Expected: ${printExpectedOutput}, instead got: ${printInput}`;
+    } else if (testType === "deepEqual") {
+      printInput = this.removeSingleQuotes(input);
+      // printExpectedOutput = this.removeSingleQuotes(expectedOutput);
+
+      testPassed = "🗸 Test Passed";
+      testFailed = `✗ expected ${printInput} to deeply equal ${printExpectedOutput}`;
+      testFailedMessage = `✗ ${message}: expected ${printInput} to deeply equal ${printExpectedOutput}`;
+    }
 
     this.printTestResult(
       input,
@@ -124,49 +139,22 @@ module.exports = class KataTest {
   }
 
   assertEquals(input, expectedOutput, message) {
-    this.defaultTest(input, expectedOutput, message);
+    const test = "default";
+    this.testSuite(input, expectedOutput, message, test);
   }
 
   equal(input, expectedOutput, message) {
-    this.defaultTest(input, expectedOutput, message);
+    const test = "default";
+    this.testSuite(input, expectedOutput, message, test);
   }
 
   assertSimilar(input, expectedOutput, message) {
-    let printInput = this.checkForArray(input);
-    let printExpectedOutput = this.checkForArray(expectedOutput);
-
-    const testPassed = `🗸 Test Passed: Value == ${printExpectedOutput}`;
-    const testFailed = `✗ Expected: ${printExpectedOutput}, instead got: ${printInput}`;
-    const testFailedMessage = `✗ ${message} - Expected: ${printExpectedOutput}, instead got: ${printInput}`;
-
-    this.printTestResult(
-      input,
-      expectedOutput,
-      message,
-      testPassed,
-      testFailed,
-      testFailedMessage
-    );
+    const test = "assertSimilar";
+    this.testSuite(input, expectedOutput, message, test);
   }
 
   deepEqual(input, expectedOutput, message) {
-    let printInput = this.checkForArray(input);
-    let printExpectedOutput = this.checkForArray(expectedOutput);
-
-    printInput = this.removeSingleQuotes(input);
-    // printExpectedOutput = this.removeSingleQuotes(expectedOutput);
-
-    const testPassed = "🗸 Test Passed";
-    const testFailed = `✗ expected ${printInput} to deeply equal ${printExpectedOutput}`;
-    const testFailedMessage = `✗ ${message}: expected ${printInput} to deeply equal ${printExpectedOutput}`;
-
-    this.printTestResult(
-      input,
-      expectedOutput,
-      message,
-      testPassed,
-      testFailed,
-      testFailedMessage
-    );
+    const test = "deepEqual";
+    this.testSuite(input, expectedOutput, message, test);
   }
 };
